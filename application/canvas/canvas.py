@@ -14,7 +14,7 @@ from application.color import get_matching_color, Color, get_color_from_index, h
 from application.target_configuration.target_configuration import TargetConfiguration
 
 BOARD_SIZE_X = 2000
-BOARD_SIZE_Y = 1000
+BOARD_SIZE_Y = 2000
 
 
 async def image_to_string(image: Image):
@@ -57,6 +57,9 @@ class Canvas:
                 self.colors[x + offset_x][y + offset_y] = get_matching_color(image_data[x, y])
 
     def __get_pixel_color(self, x: int, y: int) -> Color:
+        if(len(self.colors)<=x or len(self.colors[x])<=y):
+            print("List out of range, tried accessing x: "+str(x)+" y:"+str(y))
+            return None
         return self.colors[x][y]
 
     async def __calculate_mismatched_pixels(self):
