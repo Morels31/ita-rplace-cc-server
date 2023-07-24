@@ -94,8 +94,7 @@ class Canvas:
                 if resp.status != 200:
                     print("No token!")
                     return
-
-                if access_token_sequence := re.search(r"\"accessToken\":\"([\w0-9_\-]*)\"", await resp.text()):
+                if access_token_sequence := re.search(r"\"accessToken\":\"([0-9a-zA-Z_\-\.]*)\"", await resp.text()):
                     self.access_token = access_token_sequence.group(1)
                 else:
                     print("No token!")
@@ -111,7 +110,7 @@ class Canvas:
 
             async with websockets.connect("wss://gql-realtime-2.reddit.com/query", extra_headers={
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0",
-                "Origin": "https://www.reddit.com'"
+                "Origin": "https://www.reddit.com"
             }) as ws:
                 await ws.send(
                     json.dumps(
