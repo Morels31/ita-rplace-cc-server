@@ -13,7 +13,7 @@ from PIL import Image
 from application.color import get_matching_color, Color, get_color_from_index, hex_to_rgba
 from application.target_configuration.target_configuration import TargetConfiguration
 
-BOARD_SIZE_X = 2000
+BOARD_SIZE_X = 3000
 BOARD_SIZE_Y = 2000
 
 
