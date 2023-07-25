@@ -1,1 +1,1 @@
-{"versions":{"browser":20,"python":3,"nodejs":1},"structures":{"test":{"priority":2,"pixels":[{"x":100,"y":100,"color":3,"priority":128},{"x":102,"y":102,"color":3,"priority":128}]}},"priorities":{"0":0,"1":1,"2":5,"3":10}}
+{"versions":{"browser":1.6},"structures":{"test":{"priority":2,"pixels":[{"x":100,"y":100,"color":3,"priority":128},{"x":102,"y":102,"color":3,"priority":128}]}},"priorities":{"0":0,"1":1,"2":5,"3":10}}
