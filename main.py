@@ -59,18 +59,17 @@ async def live_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
+            print("Received Request: "+str(data), flush=True)
             if op := data.get("operation"):
                 response = None
 
                 if op == 'request-pixel':
                     pixel = await canvas.pop_mismatched_pixel()
                     if pixel:
-                        response = format_response(
-                            'place-pixel',
-                            await get_pixel_data(pixel)
-                        )
+                        response = { "operation":"place-pixel", "data":await get_pixel_data(pixel) }
                     else:
                         response = {}
+
                 elif op == 'handshake':
                     metadata = data.get('data', {})
 
@@ -80,18 +79,13 @@ async def live_endpoint(websocket: WebSocket):
                     target_version = versions.get(client_platform, -1)
                     advertised_count = max(0, metadata.get('useraccounts', 1))
 
-                    # se il cliente non invia nulla, assumiamo che sia ok
-                    if client_version < target_version:
-                        response = format_response(
-                            'notify-update',
-                            {
-                                'version': target_version
-                            }
-                        )
+                    response = { "operation":"notify-update", "version":str(target_version) }
                     connection_manager.set_advertised_accounts(uuid, advertised_count)
+
                 elif op == 'ping':
                     response = ping()
 
+                print("Response: "+str(response), flush=True)
                 if response is not None:
                     await websocket.send_json(response)
     except:
@@ -126,14 +120,6 @@ async def get_users_count():
     return JSONResponse(content=
         canvas.mismatched_pixels
     )
-
-
-def format_response(op: str, user: str, data: any):
-    return {
-        'operation': op,
-        'data': data,
-        'user': user
-    }
 
 
 def password_check(password):
