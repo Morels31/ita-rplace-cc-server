@@ -2,7 +2,7 @@ from pydantic import BaseSettings
 
 
 class ServerConfig(BaseSettings):
-    remote_config_url: str = 'https://raw.githubusercontent.com/Morels31/ita-rplace-cc-server/main/pixels.json'
+    remote_config_url: str = 'https://github.com/Morels31/ita-rplace-cc-server/raw/main/pixels.json'
     canvas_update_interval: int = 10
     admin_password: str = "bea976c455d292fdd15256d3263cb2b70f051337f134b0fa9678d5eb206b4c45ebd213694af9cf6118700fc8488809be9195c7eae44a882c6be519ba09b68e47"
 
